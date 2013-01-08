@@ -473,8 +473,8 @@ public class CinderVolume implements VolumeSupport {
 
             long created = 0L;
 
-            if( json.has("createdAt") ) {
-                created = provider.parseTimestamp(json.getString("createdAt"));
+            if( json.has("created_at") ) {
+                created = provider.parseTimestamp(json.getString("created_at"));
             }
 
             int size = 0;
