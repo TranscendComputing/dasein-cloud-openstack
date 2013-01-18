@@ -21,7 +21,6 @@ package org.dasein.cloud.openstack.nova.os.ext.rackspace.cdn;
 import org.dasein.cloud.CloudException;
 import org.dasein.cloud.InternalException;
 import org.dasein.cloud.ProviderContext;
-import org.dasein.cloud.ResourceStatus;
 import org.dasein.cloud.identity.ServiceAction;
 import org.dasein.cloud.openstack.nova.os.NovaMethod;
 import org.dasein.cloud.openstack.nova.os.NovaOpenStack;
@@ -38,11 +37,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Implements CDN support for the Rackspace Cloud.
- * @since unknown
- * @version 2013.02 updated for 2013.02 model
- */
 public class RackspaceCDN implements CDNSupport {
     static public final String SERVICE  = "rax:object-cdn";
     static public final String RESOURCE = null;
@@ -172,29 +166,6 @@ public class RackspaceCDN implements CDNSupport {
     }
 
     @Override
-    public @Nonnull Iterable<ResourceStatus> listDistributionStatus() throws InternalException, CloudException {
-        ProviderContext ctx = provider.getContext();
-
-        if( ctx == null ) {
-            throw new InternalException("No context exists for this request");
-        }
-        ArrayList<ResourceStatus> distributions = new ArrayList<ResourceStatus>();
-        NovaMethod method = new NovaMethod(provider);
-        String[] list = method.getItemList(SERVICE, RESOURCE, false);
-
-        if( list != null ) {
-            for( String container : list ) {
-                ResourceStatus d = toStatus(container);
-
-                if( d != null ) {
-                    distributions.add(d);
-                }
-            }
-        }
-        return distributions;
-    }
-
-    @Override
     public @Nonnull String[] mapServiceAction(@Nonnull ServiceAction action) {
         return new String[0];
     }
@@ -270,35 +241,5 @@ public class RackspaceCDN implements CDNSupport {
         distribution.setProviderDistributionId(container);
         distribution.setProviderOwnerId(ctx.getAccountNumber());
         return distribution;
-    }
-
-    private @Nullable ResourceStatus toStatus(@Nullable String container) throws CloudException, InternalException {
-        if( container == null ) {
-            return null;
-        }
-        NovaMethod method = new NovaMethod(provider);
-        Map<String,String> headers = method.headResource(SERVICE, RESOURCE, container);
-
-        if( headers == null ) {
-            return null;
-        }
-        String enabled = null, uriString = null;
-        for( String key : headers.keySet() ) {
-            if( key.equalsIgnoreCase("X-CDN-Enabled") ) {
-                enabled = headers.get(key);
-            }
-            else if( key.equalsIgnoreCase("X-CDN-URI") ) {
-                if( uriString == null ) {
-                    uriString = headers.get(key);
-                }
-            }
-            else if( key.equalsIgnoreCase("X-CDN-SSL-URI") ) {
-                uriString = headers.get(key);
-            }
-        }
-        if( uriString == null ) {
-            return null;
-        }
-        return new ResourceStatus(container, enabled != null && enabled.equalsIgnoreCase("true"));
     }
 }
