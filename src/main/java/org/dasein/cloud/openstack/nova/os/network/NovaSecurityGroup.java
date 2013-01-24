@@ -798,7 +798,38 @@ public class NovaSecurityGroup implements FirewallSupport {
                             break;
                         }
                     }
+                }
+            }
+            else if( t.getRuleTargetType().equals(RuleTargetType.GLOBAL) && source.equals(t.getProviderFirewallId()) ) {
+                RuleTarget rt = rule.getDestinationEndpoint();
 
+                if( target.getRuleTargetType().equals(rt.getRuleTargetType()) ) {
+                    boolean matches = false;
+
+                    switch( rt.getRuleTargetType() ) {
+                        case CIDR:
+                            //noinspection ConstantConditions
+                            matches = target.getCidr().equals(rt.getCidr());
+                            break;
+                        case GLOBAL:
+                            //noinspection ConstantConditions
+                            matches = target.getProviderFirewallId().equals(rt.getProviderFirewallId());
+                            break;
+                        case VLAN:
+                            //noinspection ConstantConditions
+                            matches = target.getProviderVlanId().equals(rt.getProviderVlanId());
+                            break;
+                        case VM:
+                            //noinspection ConstantConditions
+                            matches = target.getProviderVirtualMachineId().equals(rt.getProviderVirtualMachineId());
+                            break;
+                    }
+                    if( matches && rule.getProtocol().equals(protocol) && rule.getPermission().equals(permission) && rule.getDirection().equals(direction) ) {
+                        if( rule.getStartPort() == beginPort && rule.getEndPort() == endPort ) {
+                            targetRule = rule;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -810,7 +841,7 @@ public class NovaSecurityGroup implements FirewallSupport {
 
     @Override
     public boolean supportsRules(@Nonnull Direction direction, @Nonnull Permission permission, boolean inVlan) throws CloudException, InternalException {
-        return (inVlan && Direction.INGRESS.equals(direction) && Permission.ALLOW.equals(permission));
+        return (!inVlan && Direction.INGRESS.equals(direction) && Permission.ALLOW.equals(permission));
     }
 
     @Override
