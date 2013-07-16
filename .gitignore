@@ -4,12 +4,11 @@
 *.jar
 *.war
 *.ear
-*.iml
+
 *.idea
+*.iml
 target
 .DS_Store
 
 # Eclipse #
-.classpath
-.project
-.settings
+build

@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.dasein</groupId>
   <artifactId>dasein-cloud-openstack</artifactId>
-  <version>2013.07-SNAPSHOT</version>
+  <version>TRANSCEND.2013.07-SNAPSHOT</version>
   <name>Dasein Cloud Nova</name>
-  <description>Dasein Cloud implementation for the OpenStack APIs</description>
-  
-  <url>http://github.com/greese/dasein-cloud-openstack</url>
+  <description>Dasein Cloud implementation for the Nova APIs</description>
+
+  <url>http://dasein-cloud.sf.net</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
     </license>
   </licenses>
-  
+
   <organization>
     <name>Dell, Inc.</name>
     <url>http://software.dell.com</url>
@@ -29,19 +29,23 @@
         <developerConnection>scm:git:ssh://git@github.com/greese/dasein-cloud-openstack.git</developerConnection>
         <url>http://github.com/greese/dasein-cloud-openstack</url>
     </scm>
-    
+
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>5</version>
   </parent>
-        
+
   <dependencies>
       <!-- Compile -->
     <dependency>
         <groupId>org.dasein</groupId>
         <artifactId>dasein-cloud-core</artifactId>
+<<<<<<< HEAD
         <version>2013.07-SNAPSHOT</version>
+=======
+        <version>TRANSCEND.2012.09.1-SNAPSHOT</version>
+>>>>>>> 207ea15deafe4b83ec100e68b83cd3247a253ad1
         <scope>compile</scope>
         <optional>false</optional>
     </dependency>
@@ -81,12 +85,16 @@
       <dependency>
           <groupId>org.dasein</groupId>
           <artifactId>dasein-cloud-test</artifactId>
+<<<<<<< HEAD
           <version>2013.07-SNAPSHOT</version>
+=======
+          <version>2012.09.8</version>
+>>>>>>> 207ea15deafe4b83ec100e68b83cd3247a253ad1
           <scope>test</scope>
           <optional>false</optional>
       </dependency>
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -97,7 +105,7 @@
           <source>1.6</source>
           <target>1.6</target>
         </configuration>
-      </plugin>  
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -110,14 +118,14 @@
                       <goal>jar</goal>
                   </goals>
               </execution>
-          </executions>                
+          </executions>
           <configuration>
               <encoding>utf-8</encoding>
               <quiet>true</quiet>
               <links>
                   <link>http://java.sun.com/javase/6/docs/api/</link>
                   <link>http://www.dasein.org/api/dasein-cloud/</link>
-                  <link>http://www.dasein.org/api/dasein-utils/</link>                  
+                  <link>http://www.dasein.org/api/dasein-utils/</link>
               </links>
               <stylesheetfile>dasein-javadoc.css</stylesheetfile>
               <footer />
@@ -158,8 +166,21 @@
                           <goal>jar-no-fork</goal>
                       </goals>
                   </execution>
+<<<<<<< HEAD
               </executions> 
         </plugin>
+=======
+              </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.1</version>
+            <configuration>
+                <tagBase>https://dasein-cloud.svn.sourceforge.net/svnroot/dasein-cloud/tags/dasein-cloud-nova</tagBase>
+            </configuration>
+      </plugin>
+>>>>>>> 207ea15deafe4b83ec100e68b83cd3247a253ad1
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -211,7 +232,7 @@
               <include>**/TestSuite.java</include>
           </includes>
         </configuration>
-      </plugin>     
+      </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
@@ -225,10 +246,10 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>       
+      </plugin>
     </plugins>
   </build>
-  
+
   <distributionManagement>
     <repository>
         <id>sonatype-nexus-staging</id>
@@ -238,9 +259,9 @@
     <snapshotRepository>
         <id>sonatype-nexus-snapshots</id>
         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>    
+    </snapshotRepository>
   </distributionManagement>
-  
+
   <developers>
     <developer>
         <name>George Reese</name>
@@ -253,7 +274,7 @@
         </roles>
         <url>http://www.enstratius.com</url>
         <timezone>-6</timezone>
-    </developer>  
+    </developer>
     <developer>
         <name>Morgan Catlin</name>
         <id>sylistron</id>
@@ -264,7 +285,7 @@
         </roles>
         <url>http://www.valtira.com</url>
         <timezone>-6</timezone>
-    </developer>    
+    </developer>
     <developer>
         <name>Adrian Cole</name>
         <id>ferncam1</id>
@@ -277,5 +298,5 @@
         <url>http://www.jclouds.org</url>
         <timezone>-8</timezone>
     </developer>
-  </developers>  
+  </developers>
 </project>

@@ -35,16 +35,16 @@ public class NovaException extends CloudException {
     }
 
     //    //{"badRequest": {"message": "AddressLimitExceeded: Address quota exceeded. You cannot allocate any more addresses", "code": 400}}
-    static public ExceptionItems parseException(int code, String json) {
+    static public ExceptionItems parseException(int code, String msg) {
         ExceptionItems items = new ExceptionItems();
         
         items.code = code;
         items.type = CloudErrorType.GENERAL;
         items.message = "unknown";
         items.details = "The cloud provided an error code without explanation";
-        if( json != null ) {
+        if( msg != null ) {
             try {
-                JSONObject ob = new JSONObject(json);
+                JSONObject ob = new JSONObject(msg);
 
                 if( code == 400 && ob.has("badRequest") ) {
                     ob = ob.getJSONObject("badRequest");
@@ -95,8 +95,21 @@ public class NovaException extends CloudException {
                 }
             }
             catch( JSONException e ) {
-                NovaOpenStack.getLogger(NovaException.class, "std").warn("parseException(): Invalid JSON in cloud response: " + json);
-                items.details = json;
+                NovaOpenStack.getLogger(NovaException.class, "std").warn("parseException(): Invalid JSON in cloud response: " + msg);
+                items.details = msg;
+                items.message = msg;
+                if( code == 413 ) {
+                    items.type = CloudErrorType.QUOTA;
+                }
+                if( msg.contains("QuotaError: Quota exceeded")) {
+                    items.type = CloudErrorType.QUOTA;
+                }
+                if( msg.contains("unauthorized") ) {
+                    items.type = CloudErrorType.AUTHENTICATION;
+                }
+                if( msg.contains("badrequest") || msg.contains("badmediatype") || msg.contains("badmethod") || msg.contains("notimplemented") ) {
+                    items.type = CloudErrorType.COMMUNICATION;
+                }
             }
         }
         return items;
