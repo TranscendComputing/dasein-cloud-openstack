@@ -30,7 +30,7 @@ public class SwiftStorageServices extends AbstractStorageServices {
     public SwiftStorageServices(@Nonnull NovaOpenStack provider) { this.provider = provider; }
 
     @Override
-    public @Nonnull SwiftBlobStore getOnlineStorageSupport() {
+    public @Nonnull SwiftBlobStore getBlobStoreSupport() {
         return new SwiftBlobStore(provider);
     }
 }

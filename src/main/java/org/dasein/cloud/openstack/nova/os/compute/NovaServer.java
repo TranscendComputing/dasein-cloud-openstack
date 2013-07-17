@@ -86,7 +86,7 @@ import org.json.JSONObject;
  * @version 2013.02 added support for fetching shell keys (issue #4)
  * @since unknown
  */
-public class NovaServer extends AbstractVMSupport<NovaOpenStack> {
+public class NovaServer extends AbstractVMSupport {
     static private final Logger logger = NovaOpenStack.getLogger(NovaServer.class, "std");
 
     static public final String SERVICE = "compute";
@@ -901,7 +901,7 @@ public class NovaServer extends AbstractVMSupport<NovaOpenStack> {
     }
 
     @Override
-    public void terminate(@Nonnull String vmId, @Nullable String explanation) throws InternalException, CloudException {
+    public void terminate(@Nonnull String vmId) throws InternalException, CloudException {
         APITrace.begin(getProvider(), "VM.terminate");
         try {
             NovaMethod method = new NovaMethod((NovaOpenStack)getProvider());
