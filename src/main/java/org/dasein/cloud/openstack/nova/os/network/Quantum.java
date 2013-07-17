@@ -111,7 +111,7 @@ public class Quantum extends AbstractVLANSupport {
             }
             NovaMethod method = new NovaMethod((NovaOpenStack)getProvider());
             try {
-                JSONObject ob = method.getServers("/networks", null, false);
+                JSONObject ob = method.getServers(getNetworkResource(), null, false);
 
                 if( ob != null && ob.has("networks") ) {
                     cache.put(getContext(), Collections.singletonList(QuantumType.QUANTUM));
@@ -872,7 +872,7 @@ public class Quantum extends AbstractVLANSupport {
             if( v.getDescription() == null ) {
                 v.setDescription(v.getName());
             }
-            v.setSupportedTraffic(new IPVersion[] { IPVersion.IPV4, IPVersion.IPV6 });
+            v.setSupportedTraffic(IPVersion.IPV4, IPVersion.IPV6);
             return v;
         }
         catch( JSONException e ) {

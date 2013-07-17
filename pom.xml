@@ -206,22 +206,6 @@
                     <name>regionId</name>
                     <value>${regionId}</value>
                 </property>
-                <property>
-                    <name>test.region</name>
-                    <value>${regionId}</value>
-                </property>
-                <property>
-                    <name>test.dataCenter</name>
-                    <value>${test.dataCenter}</value>
-                </property>
-                <property>
-                    <name>test.machineImage</name>
-                    <value>${test.machineImage}</value>
-                </property>
-                <property>
-                    <name>test.product</name>
-                    <value>${test.product}</value>
-                </property>
             </systemProperties>
           <includes>
               <include>**/TestSuite.java</include>
@@ -262,7 +246,7 @@
         <name>George Reese</name>
         <id>georgereese</id>
         <email>george_reese -at- dell -dot- com</email>
-        <organization>Dell</organization>
+        <organization>Enstratius</organization>
         <roles>
           <role>Java Developer</role>
           <role>PMC</role>
@@ -274,7 +258,7 @@
         <name>Morgan Catlin</name>
         <id>sylistron</id>
         <email>morgan.catlin -at- valtira -dot- com</email>
-        <organization>Enstratius</organization>
+        <organization>Valtira</organization>
         <roles>
           <role>Java Developer</role>
         </roles>
