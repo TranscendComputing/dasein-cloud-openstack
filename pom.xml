@@ -25,9 +25,9 @@
   </organization>
 
     <scm>
-        <connection>scm:git:git://github.com/greese/dasein-cloud-openstack.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/greese/dasein-cloud-openstack.git</developerConnection>
-        <url>http://github.com/greese/dasein-cloud-openstack</url>
+        <connection>scm:git:git://github.com/TranscendComputing/dasein-cloud-openstack.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/TranscendComputing/dasein-cloud-openstack.git</developerConnection>
+        <url>http://github.com/TranscendComputing/dasein-cloud-openstack</url>
     </scm>
 
   <parent>
@@ -230,15 +230,15 @@
   </build>
 
   <distributionManagement>
-    <repository>
-        <id>sonatype-nexus-staging</id>
-        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        <uniqueVersion>false</uniqueVersion>
-    </repository>
-    <snapshotRepository>
-        <id>sonatype-nexus-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>http://jenkins.momentumsoftware.com:8081/service/local/staging/deploy/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>http://jenkins.momentumsoftware.com:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
   </distributionManagement>
 
   <developers>
