@@ -150,7 +150,7 @@ public class NovaSecurityGroup extends AbstractFirewallSupport {
 
                     if( fw != null ) {
                         String id = fw.getProviderFirewallId();
-                        
+
                         if( id != null ) {
                             return id;
                         }
@@ -309,10 +309,12 @@ public class NovaSecurityGroup extends AbstractFirewallSupport {
                         }
 
                         if( rule.has("from_port") ) {
-                            startPort = rule.getInt("from_port");
+                            startPort = rule.isNull("from_port")? -1 :
+                                rule.getInt("from_port");
                         }
                         if( rule.has("to_port") ) {
-                            endPort = rule.getInt("to_port");
+                            endPort = rule.isNull("to_port")? -1 :
+                                rule.getInt("to_port");
                         }
                         if( startPort == -1 && endPort != -1 ) {
                             startPort = endPort;
@@ -328,7 +330,7 @@ public class NovaSecurityGroup extends AbstractFirewallSupport {
                         }
                         if( rule.has("ip_protocol") ) {
                         	/*
-                        	 * Note: the nova api returns null for 'Any' 
+                        	 * Note: the nova api returns null for 'Any'
                         	 */
                         	String testAny = rule.getString("ip_protocol");
                         	if (testAny == null || testAny.equalsIgnoreCase("null")) {
@@ -382,7 +384,7 @@ public class NovaSecurityGroup extends AbstractFirewallSupport {
             APITrace.end();
         }
     }
-    
+
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean isSubscribed() throws InternalException, CloudException {
@@ -421,7 +423,7 @@ public class NovaSecurityGroup extends AbstractFirewallSupport {
                     for( int i=0; i<list.length(); i++ ) {
                         JSONObject json = list.getJSONObject(i);
                         Firewall fw = toFirewall(json);
-    
+
                         if( fw != null ) {
                             firewalls.add(fw);
                         }
